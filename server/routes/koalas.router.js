@@ -19,8 +19,8 @@ router.get ( '/', (req, res) => {
 router.post( '/', ( req, res )=>{
     console.log( 'in /koalas POST:', req.body );
         // assemble query
-        const queryText = `INSERT into "koalas" ( name, birthdate ) VALUES ( $1, $2 );`;
-        const values = [ req.body.name, req.body.birthdate ];
+        const queryText = `INSERT into "koalas" ( name, gender, age, ready_to_transfer, notes ) VALUES ( $1, $2, $3, $4, $5);`;
+        const values = [ req.body.name, req.body.gender, req.body.age, req.body.readyToTransfer, req.body.notes ];
         // run pool.query
         pool.query( queryText, values ).then( ( results )=>{
             // return results.rows
@@ -33,18 +33,18 @@ router.post( '/', ( req, res )=>{
 })
 
 router.delete( '/', ( req, res )=>{
-    console.log( 'in /koalas DELETE:', req.body );
-        // assemble query
-        const queryText = `DELETE FROM koalas WHERE id=$1;`;
-        const values = [ req.body.id ];
-        // run pool.query
-        pool.query( queryText, values ).then( ( results )=>{
-            res.sendStatus( 200 ); // "OK"
-        }).catch( ( err )=>{
-            // handle any errors
-            console.log( err );
-            res.sendStatus( 400 );
-        })
+  console.log( 'in /koalas DELETE:', req.body );
+  // assemble query
+  const queryText = `DELETE FROM koalas WHERE id=$1;`;
+  const values = [ req.body.id ];
+  // run pool.query
+  pool.query( queryText, values ).then( ( results )=>{
+      res.sendStatus( 200 ); // "OK"
+  }).catch( ( err )=>{
+      // handle any errors
+      console.log( err );
+      res.sendStatus( 400 );
+  });
 })
 
 router.put( '/', ( req, res )=>{
@@ -60,8 +60,5 @@ router.put( '/', ( req, res )=>{
         res.sendStatus( 400 );
     })
 })
-
-
-
 
 module.exports = router;
