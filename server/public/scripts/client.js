@@ -17,12 +17,12 @@ function getKoalas(){
     console.log('ERROR in GET koalas', error)
     app.sendStatus(500)
   })
-} // end getKoalas
+}
 
 function saveKoala(){
   console.log( 'in saveKoala' );
   // axios call to server to get koalas
- 
+
 }
 
 function addKoala(){
@@ -30,10 +30,10 @@ function addKoala(){
 
 // ! create newKoala object to hold inputs
   const newKoala = {
-    name: document.getElementById('nameIn').value, 
-    gender: document.getElementById('colorIn').value, 
+    name: document.getElementById('nameIn').value,
+    gender: document.getElementById('colorIn').value,
     age: document.getElementById('ageIn').value,
-    readyToTransfer: document.getElementById('readyForTransferIn').value, 
+    readyToTransfer: document.getElementById('readyForTransferIn').value,
     notes: document.getElementById('notesIn').value
   }
   console.log('Lets welcome the new guy: ', newKoala)
@@ -69,11 +69,25 @@ function renderKoalas(listOfKoalas) {
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
-        <td>${koala.notes}</td>  
-        <button onClick="deleteKoala(event)">Delete</button>
-      </tr>  
+        <td>${koala.notes}</td>
+        <td>
+          <button onClick="deleteKoala(${koala.id})">Delete</button>
+        </td>
+      </tr>
     `
   }
 
 }
 
+function deleteKoala(koalaId) {
+  const koala = { id: koalaId };
+  axios({
+    method: "DELETE",
+    url: "/koalas",
+    data: koala
+  })
+    .then((response) => {
+      console.log(`/koalas DELETE request received:`, response.data);
+      getKoalas();
+  })
+}
