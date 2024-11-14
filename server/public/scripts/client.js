@@ -38,6 +38,19 @@ function addKoala(){
   }
   console.log('Lets welcome the new guy: ', newKoala)
 
+  axios({
+    method: 'POST',
+    url: '/koalas',
+    data: newKoala
+  })
+  .then((response) => {
+    console.log('POST koalas!!')
+    getKoalas()
+  })
+  .catch((error) => {
+    console.log('ERROR in addKoala() ', error)
+    app.sendStatus(500)
+  })
 }
 
 function renderKoalas(listOfKoalas) {
