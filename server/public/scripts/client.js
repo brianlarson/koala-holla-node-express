@@ -27,5 +27,19 @@ function saveKoala(){
 
 function renderKoalas(listOfKoalas) {
   console.log('in renderKoalas')
+  const koalasTableBody = document.getElementById('viewKoalas')
+
+  for(let koala of listOfKoalas){
+    koalasTableBody.innerHTML += `
+      <tr>
+        <td>${koala.name}</td>
+        <td>${koala.age}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.ready_to_transfer}</td>
+        <td>${koala.notes}</td>  
+      </tr>  
+    `
+  }
+
 }
 
