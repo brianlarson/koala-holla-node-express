@@ -32,6 +32,11 @@ app.get('/koalas', (req, res) => {
   res.send(koalaList);
 });
 
+app.post('/koalas', (req, res) => {
+  console.log('in /koalas POST')
+  koalaList.push(req.body)
+  res.sendStatus(201)
+})
 // Start listening for requests on a specific port
 app.listen(PORT, () => {
   console.log('listening on port', PORT);

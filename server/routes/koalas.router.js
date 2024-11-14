@@ -19,8 +19,8 @@ router.get ( '/', (req, res) => {
 router.post( '/', ( req, res )=>{
     console.log( 'in /koalas POST:', req.body );
         // assemble query
-        const queryText = `INSERT into "koalas" ( name, birthdate ) VALUES ( $1, $2 );`;
-        const values = [ req.body.name, req.body.birthdate ];
+        const queryText = `INSERT into "koalas" ( name, gender, age, ready_to_transfer, notes ) VALUES ( $1, $2, $3, $4, $5);`;
+        const values = [ req.body.name, req.body.gender, req.body.age, req.body.readyToTransfer, req.body.notes ];
         // run pool.query
         pool.query( queryText, values ).then( ( results )=>{
             // return results.rows

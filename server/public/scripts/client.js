@@ -56,7 +56,7 @@ function addKoala(){
 function renderKoalas(listOfKoalas) {
   console.log('in renderKoalas')
   const koalasTableBody = document.getElementById('viewKoalas')
-
+  koalasTableBody.innerHTML = ''
   for(let koala of listOfKoalas){
     koalasTableBody.innerHTML += `
       <tr>
