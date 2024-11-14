@@ -25,6 +25,21 @@ function saveKoala(){
  
 }
 
+function addKoala(){
+  console.log('lets add a koala')
+
+
+  const newKoala = {
+    name: document.getElementById('nameIn').value, 
+    gender: document.getElementById('colorIn').value, 
+    age: document.getElementById('ageIn').value,
+    readyToTransfer: document.getElementById('readyForTransferIn').value, 
+    notes: document.getElementById('notesIn').value
+  }
+  console.log('Lets welcome the new guy: ', newKoala)
+
+}
+
 function renderKoalas(listOfKoalas) {
   console.log('in renderKoalas')
   const koalasTableBody = document.getElementById('viewKoalas')
