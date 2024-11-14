@@ -80,14 +80,21 @@ function renderKoalas(listOfKoalas) {
 }
 
 function deleteKoala(koalaId) {
-  const koala = { id: koalaId };
-  axios({
-    method: "DELETE",
-    url: "/koalas",
-    data: koala
-  })
-    .then((response) => {
-      console.log(`/koalas DELETE request received:`, response.data);
-      getKoalas();
-  })
+  const confirmDelete = confirm(`‼️ How could you!?`);
+  if (confirmDelete) {
+    const koala = { id: koalaId };
+    axios({
+      method: "DELETE",
+      url: "/koalas",
+      data: koala
+    })
+      .then((response) => {
+        console.log(`/koalas DELETE request received:`, response.data);
+        getKoalas();
+    })
+      .catch((error) => {
+        console.log('ERROR in deleteKoala() ', error);
+        app.sendStatus(500);
+    });
+  }
 }
