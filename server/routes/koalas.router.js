@@ -3,7 +3,7 @@ const router = express.Router()
 const pool = require('../modules/pool')
 
 router.get ( '/', (req, res) => {
-    let queryText = `SELECT * FROM "koalas";`
+    let queryText = `SELECT * FROM "koalas" ORDER BY "name" ASC;`
     pool.query (queryText)
     .then(( results ) =>{
     //Return rows of result:
@@ -49,8 +49,8 @@ router.delete( '/', ( req, res )=>{
 
 router.put( '/', ( req, res )=>{
     console.log( '/koalas PUT:', req.body );
-    const queryText = `UPDATE koalas SET favorite=$1 WHERE id=$2;`;
-    const values = [ req.body.newFavorite, req.body.id ];
+    const queryText = `UPDATE koalas SET ready_to_transfer=$1 WHERE id=$2;`;
+    const values = [ req.body.ready_to_transfer, req.body.id ];
     // run pool.query
     pool.query( queryText, values ).then( ( results )=>{
         res.sendStatus( 200 ); // "OK"

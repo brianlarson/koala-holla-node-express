@@ -63,12 +63,20 @@ function renderKoalas(listOfKoalas) {
 
   // ! new inputs get sent into HTML
   for(let koala of listOfKoalas){
+    let btnClass = "bg-gray";
+    if (koala.ready_to_transfer == "Y") {
+      btnClass = "bg-green";
+    }
     koalasTableBody.innerHTML += `
       <tr>
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
-        <td><button onClick="toggleTransferStatus(event, ${koala.id})">${koala.ready_to_transfer}</button></td>
+        <td>
+          <button class="${btnClass}" onClick="toggleTransferStatus(event, ${koala.id})">
+            ${koala.ready_to_transfer}
+          </button>
+        </td>
         <td>${koala.notes}</td>
         <td>
           <button onClick="deleteKoala(${koala.id})">Delete</button>
@@ -100,5 +108,29 @@ function deleteKoala(koalaId) {
 }
 
 function toggleTransferStatus(event, koalaId) {
-  console.log("koalaId", koalaId);
+  const button = event.target;
+  let transferStatus;
+  if (button.innerText == "N") {
+    button.innerText = "Y";
+    button.setAttribute("class", "bg-green");
+    transferStatus = "Y";
+  } else {
+    button.innerText = "N";
+    button.setAttribute("class", "bg-gray");
+    transferStatus = "N";
+  }
+  const koalaToUpdate = { id: koalaId, ready_to_transfer: transferStatus };
+  console.log("koalaToUpdate", koalaToUpdate);
+  axios({
+    method: "PUT",
+    url: "/koalas",
+    data: koalaToUpdate
+  })
+    .then((response) => {
+      console.log(`/koalas PUT request received:`, response.data);
+      getKoalas();
+  })
+    .catch((error) => {
+      console.log('Error in koala PUT request:', error);
+  });
 }
