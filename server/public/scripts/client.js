@@ -109,18 +109,14 @@ function deleteKoala(koalaId) {
 
 function toggleTransferStatus(event, koalaId) {
   const button = event.target;
-  let transferStatus;
+  let transferStatus = "N";
   if (button.innerText == "N") {
-    button.innerText = "Y";
-    button.setAttribute("class", "bg-green");
     transferStatus = "Y";
-  } else {
-    button.innerText = "N";
-    button.setAttribute("class", "bg-gray");
-    transferStatus = "N";
   }
-  const koalaToUpdate = { id: koalaId, ready_to_transfer: transferStatus };
-  console.log("koalaToUpdate", koalaToUpdate);
+  const koalaToUpdate = {
+    id: koalaId,
+    ready_to_transfer: transferStatus
+  };
   axios({
     method: "PUT",
     url: "/koalas",
