@@ -68,7 +68,7 @@ function renderKoalas(listOfKoalas) {
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
-        <td>${koala.ready_to_transfer}</td>
+        <td><button onClick="toggleTransferStatus(event, ${koala.id})">${koala.ready_to_transfer}</button></td>
         <td>${koala.notes}</td>
         <td>
           <button onClick="deleteKoala(${koala.id})">Delete</button>
@@ -97,4 +97,8 @@ function deleteKoala(koalaId) {
         app.sendStatus(500);
     });
   }
+}
+
+function toggleTransferStatus(event, koalaId) {
+  console.log("koalaId", koalaId);
 }
